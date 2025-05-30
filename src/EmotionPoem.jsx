@@ -20,7 +20,9 @@ export default function EmotionPoem() {
     if (!text.trim()) return;
     setLoading(true);
     try {
-      const res = await axios.post("http://127.0.0.1:5000/poem", { text });
+      const res = await axios.post("https://createpomebe.onrender.com/poem", {
+        text,
+      });
       const rawPoem = res.data.poem;
 
       // 제목과 본문 분리 (제목: 첫 줄, 본문: 나머지)
