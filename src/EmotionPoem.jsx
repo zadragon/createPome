@@ -24,12 +24,14 @@ export default function EmotionPoem() {
       const rawPoem = res.data.poem;
 
       // 제목과 본문 분리 (제목: 첫 줄, 본문: 나머지)
-      const lines = rawPoem.split("\n").filter(line => line.trim() !== "");
-      const title = lines[0]
-        .replace(/^\[|\]$/g, "")
-        .replace(/^【|】$/g, "")
-        .trim();
-      const body = lines.slice(1).join("\n");
+      const titleMatch = rawPoem.match(/\[제목\]\n(.+?)\n/);
+      const bodyMatch = rawPoem.match(/\[본문\]\n([\s\S]*)/);
+
+      const title = titleMatch ? titleMatch[1].trim() : "";
+      const body = bodyMatch ? bodyMatch[1].trim() : "";
+
+      // const title = titleMatch ? titleMatch[1].trim() : "";
+      // const body = bodyMatch ? bodyMatch[1].trim() : "";
 
       setResult({ emotions: res.data.emotions, title, body });
     } catch (err) {
